@@ -1,6 +1,6 @@
 resource "vault_auth_backend" "userpass_dev1" {
   type = "userpass"
-  path = "userpass"
+  path = "dev1"
 }
 
 resource "vault_auth_backend" "userpass_dev2" {
