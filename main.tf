@@ -20,6 +20,9 @@ resource "vault_policy" "dev1_policy" {
     path "kvv2-dev1/*" {
     capabilities = ["read", "list"]
     }
+    path "cubbyhole/*" {
+    capabilities = ["deny"]
+    }
 EOT
 }
 
@@ -27,9 +30,12 @@ resource "vault_policy" "dev2_policy" {
   name = "dev2-policy" #  Name here mean the name of the resource in vault
 
   policy = <<EOT
-path "kvv2-dev2/*" {
-  capabilities = ["read", "list"]
-}
+    path "kvv2-dev2/*" {
+    capabilities = ["read", "list"]
+    }
+    path "cubbyhole/*" {
+    capabilities = ["deny"]
+    }
 EOT
 }
 
@@ -62,7 +68,44 @@ resource "vault_kv_secret_v2" "kvv2-dev1-master-secret" {
     {
       username = "master-admin"
       password = "password"
-      region = "singapore"
+      region   = "singapore"
+    }
+  )
+}
+
+resource "vault_kv_secret_v2" "kvv2-dev1-dev-secret" {
+  mount = vault_mount.dev1-kvv2-mount.path
+  name  = "aws-dev-account"
+  data_json = jsonencode(
+    {
+      username = "dev-admin"
+      password = "password2"
+      region   = "singapore2"
+    }
+  )
+}
+
+# for dev2
+resource "vault_kv_secret_v2" "kvv2-dev2-master-secret" {
+  mount = vault_mount.dev2-kvv2-mount.path
+  name  = "aws-master2-account"
+  data_json = jsonencode(
+    {
+      username = "master2-admin"
+      password = "password"
+      region   = "singapore"
+    }
+  )
+}
+
+resource "vault_kv_secret_v2" "kvv2-dev2-dev-secret" {
+  mount = vault_mount.dev2-kvv2-mount.path
+  name  = "aws-dev2-account"
+  data_json = jsonencode(
+    {
+      username = "dev2-admin"
+      password = "password2"
+      region   = "singapore2"
     }
   )
 }
