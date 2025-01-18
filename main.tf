@@ -12,3 +12,23 @@ resource "vault_auth_backend" "userpass_dev3" {
   type = "userpass"
   path = "dev3"
 }
+
+resource "vault_policy" "dev1_policy" {
+  name = "dev1-policy" #  Name here mean the name of the resource
+
+  policy = <<EOT
+    path "kvv2-dev1/*" {
+    capabilities = ["read", "list"]
+    }
+EOT
+}
+
+resource "vault_policy" "dev2_policy" {
+  name = "dev2-policy" #  Name here mean the name of the resource
+
+  policy = <<EOT
+path "kvv2-dev2/*" {
+  capabilities = ["read", "list"]
+}
+EOT
+}
