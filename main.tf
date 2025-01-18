@@ -109,3 +109,26 @@ resource "vault_kv_secret_v2" "kvv2-dev2-dev-secret" {
     }
   )
 }
+
+# Users
+resource "vault_generic_endpoint" "dev1-account" {
+  depends_on = [vault_auth_backend.userpass_dev1]
+  path       = "auth/dev1/users/dev1-admin"
+  data_json  = <<EOT
+    {
+    "password" : "password",
+    "policies" : ["dev1-policy"]
+    }
+    EOT
+}
+
+resource "vault_generic_endpoint" "dev2-account" {
+  depends_on = [vault_auth_backend.userpass_dev2]
+  path       = "auth/dev2/users/dev2-admin"
+  data_json  = <<EOT
+    {
+    "password" : "password",
+    "policies" : ["dev2-policy"]
+    }
+    EOT
+}
