@@ -42,3 +42,27 @@ path "kvv2-dev3/*" {
 }
 EOT
 }
+
+resource "vault_mount" "dev1-kvv2-mount" {
+  path        = "kvv2-dev1"
+  type        = "kv-v2"
+  description = "This is dev1 kvv2 mount secret engine"
+}
+
+resource "vault_mount" "dev2-kvv2-mount" {
+  path        = "kvv2-dev2"
+  type        = "kv-v2"
+  description = "This is dev2 kvv2 mount secret engine"
+}
+
+resource "vault_kv_secret_v2" "kvv2-dev1-master-secret" {
+  mount = vault_mount.dev1-kvv2-mount.path
+  name  = "aws-master-account"
+  data_json = jsonencode(
+    {
+      username = "master-admin"
+      password = "password"
+      region = "singapore"
+    }
+  )
+}
