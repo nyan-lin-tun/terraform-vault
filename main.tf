@@ -14,7 +14,7 @@ resource "vault_auth_backend" "userpass_dev3" {
 }
 
 resource "vault_policy" "dev1_policy" {
-  name = "dev1-policy" #  Name here mean the name of the resource
+  name = "dev1-policy" #  Name here mean the name of the resource in vault
 
   policy = <<EOT
     path "kvv2-dev1/*" {
@@ -24,7 +24,7 @@ EOT
 }
 
 resource "vault_policy" "dev2_policy" {
-  name = "dev2-policy" #  Name here mean the name of the resource
+  name = "dev2-policy" #  Name here mean the name of the resource in vault
 
   policy = <<EOT
 path "kvv2-dev2/*" {
