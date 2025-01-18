@@ -32,3 +32,13 @@ path "kvv2-dev2/*" {
 }
 EOT
 }
+
+resource "vault_policy" "dev3_policy" {
+  name = "dev3-policy" #  Name here mean the name of the resource in vault
+
+  policy = <<EOT
+path "kvv2-dev3/*" {
+  capabilities = ["read", "list"]
+}
+EOT
+}
