@@ -28,3 +28,5 @@ policy = path "kvv2-dev2/*" {
 # enabling secrets engine
 type = "kv-v2"
 path = "kvv2-dev1"
+
+# testing user info
